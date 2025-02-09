@@ -2,6 +2,28 @@ from pynput import keyboard
 import simpleaudio as sa
 import ctypes
 import threading
+import sys
+import os
+
+def resource_path(relative_path):
+    """Получает правильный путь к ресурсам как для исходного кода, так и для exe."""
+    try:
+        if getattr(sys, 'frozen', False):
+            return os.path.join(sys._MEIPASS, relative_path)  # PyInstaller
+        return os.path.join(os.path.dirname(__file__), relative_path)  # Обычный запуск
+    except Exception as e:
+        print(f"Ошибка при получении пути: {e}")
+        return relative_path  # Если ошибка, используем относительный путь
+
+# Теперь подставляем правильные пути
+engl3_path = resource_path("engl3.wav")
+rus2_path = resource_path("rus2.wav")
+
+# print(f"Путь к engl3.wav: {engl3_path}")
+# print(f"Путь к rus2.wav: {rus2_path}")
+
+# Пример загрузки файла (если ты используешь pygame или playsound)
+# pygame.mixer.Sound(engl3_path)
 
 # Функция для определения текущей раскладки клавиатуры
 def get_keyboard_layout():
